@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+OUTPATH=path/to/output/logs
+BS=512
+LR=1e-3
+N_EPOCHS=30
+#MODEL="ViT-L-16"
+#MODEL="ViT-B-16"
+MODEL="ViT-XL-16"
+TRAIN_DATA="path/to/cc12m/{00000..01242}.tar"
+PROJECT_NAME=alignCLIP
+ALPHA=1
+BETA=0.5
+
+wandb login $(cat ~/.wandb_secret)
+
+python -m main.run --logs=$OUTPATH --save-frequency 2 --report-to wandb --wandb-project-name=$PROJECT_NAME --train-data=$TRAIN_DATA --warmup 10000  --batch-size=$BS --lr=$LR --wd=0.1 --epochs=$N_EPOCHS --workers=2 --model $MODEL --clip-inModality-loss --clip-loss --alpha=$ALPHA --beta=$BETA --nl_semantic_supervision --train-num-samples 10030127 --dataset-type webdataset --separate_text --separate_image
