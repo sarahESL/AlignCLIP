@@ -379,7 +379,7 @@ def main(args):
         if args.use_bnb_linear is not None:
             from open_clip.utils import convert_int8_model_to_inference_mode
             convert_int8_model_to_inference_mode(model)
-        loss = create_loss(args, epoch)
+        loss = create_loss(args)
         # Evaluate.
         if args.nl_semantic_supervision:
             evaluate(model, data, loss, start_epoch, args, writer, sbert)
