@@ -40,6 +40,7 @@ from main.logger import setup_logging
 from main.params import parse_args
 from main.scheduler import cosine_lr, const_lr, const_lr_cooldown
 from main.train import train_one_epoch, evaluate
+from main.retrieval import recall_at_k
 from main.file_utils import pt_load, check_exists, start_sync_process, remote_sync
 
 
@@ -383,6 +384,17 @@ def main(args):
         # Evaluate.
         if args.nl_semantic_supervision:
             evaluate(model, data, loss, start_epoch, args, writer, sbert)
+        elif args.ms_coco or args.flickr:
+            k_vals=[1, 5, 10]
+            t2i, i2t = recall_at_k(model, data, args.device, k_vals, args.batch_size )
+            print("Text-to-image Recall@K")
+            for k, x in zip(k_vals, t2i):
+                print(f" R@{k}: {100*x:.2f}%")
+
+            print("Image-to-text Recall@K")
+            for k, x in zip(k_vals, i2t):
+                print(f" R@{k}: {100*x:.2f}%")
+            return
         else:
             evaluate(model, data, loss, start_epoch, args, writer)
         return

@@ -650,6 +650,64 @@ def get_dataset_fn(data_path, dataset_type):
         raise ValueError(f"Unsupported dataset type: {dataset_type}")
     
 
+class PromptTokenizeCaption:
+    def __init__(self, tokenizer):
+        self.tokenizer = tokenizer
+    def __call__(self, texts):
+        texts = [f"a photo of {text}" for text in texts]
+        return self.tokenizer(texts[:5])
+
+
+def get_mscoco(args, preprocess_fn, tokenizer):
+
+     dataset = datasets.CocoCaptions(
+             root=args.ms_coco,
+             annFile=args.ms_coco_annot,
+             transform=preprocess_fn,
+             target_transform=PromptTokenizeCaption(tokenizer)
+             )
+
+     return dataset
+
+
+class Flickr(datasets.VisionDataset):
+    def __init__(self, root, annFile, transform, target_transform):
+        self.transform = transform
+        self.target_transform = target_transform
+
+        with open(annFile) as f:
+            data = json.load(f)
+
+        self.data = data
+        self.root = root
+
+    def __getitem__(self, index: int):
+        image_name = self.data[index]['image']
+        image_path = os.path.join(self.root, image_name)
+        image = Image.open(image_path)
+        image = self.transform(image)
+
+        captions = self.data[index]['caption']
+        captions = self.target_transform(captions)
+
+        return image, captions
+
+    def __len__(self):
+        return len(self.data)
+
+
+def get_flickr(args, preprocess_fn, tokenizer):
+
+     dataset = Flickr(
+             root=args.flickr,
+             annFile=args.flickr_annot,
+             transform=preprocess_fn,
+             target_transform=PromptTokenizeCaption(tokenizer)
+             )
+
+     return dataset
+
+
 def get_data(args, preprocess_fns, epoch=0, tokenizer=None, with_nl_semantic_supervision=False):
     preprocess_train, preprocess_val = preprocess_fns
     data = {}
@@ -700,5 +758,11 @@ def get_data(args, preprocess_fns, epoch=0, tokenizer=None, with_nl_semantic_sup
     if args.stanford is not None:
         data["stanford"] = get_stanford(args, preprocess_fns, "test")
         data["stanford-train"] = get_stanford(args, preprocess_fns, "train")
+
+    if args.ms_coco is not None:
+        data["ms-coco"] = get_mscoco(args, preprocess_val, tokenizer)
+    
+    if args.flickr is not None:
+        data["flickr"] = get_flickr(args, preprocess_val, tokenizer)
 
     return data

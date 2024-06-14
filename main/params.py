@@ -509,6 +509,30 @@ def parse_args(args):
         default=None,
         help="Path to stanford cars for conducting classification.",
     )
+    parser.add_argument(
+        "--ms-coco",
+        type=str,
+        default=None,
+        help="Path to ms-coco dataset.",
+    )
+    parser.add_argument(
+        "--ms-coco-annot",
+        type=str,
+        default=None,
+        help="Path to ms-coco annotation dataset.",
+    )
+    parser.add_argument(
+        "--flickr",
+        type=str,
+        default=None,
+        help="Path to flickr dataset.",
+    )
+    parser.add_argument(
+        "--flickr-annot",
+        type=str,
+        default=None,
+        help="Path to flickr annotation dataset.",
+    )
     args = parser.parse_args(args)
 
     # If some params are not passed, we use the default values based on model name.
