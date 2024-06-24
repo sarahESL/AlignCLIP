@@ -1,0 +1,18 @@
+name: alignclip
+channels:
+  - conda-forge
+dependencies:
+  - wandb
+  - ca-certificates
+  - certifi
+  - openssl
+  - numpy
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - sentence-transformers
+  - ftfy
+  - braceexpand
+  - webdataset
+  - pycocotools
