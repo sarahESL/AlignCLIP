@@ -5,9 +5,9 @@ OUTPATH=path/to/output/logs
 BS=512
 LR=1e-3
 N_EPOCHS=30
-MODEL="ViT-XL-16"
+MODEL="ViT-B-16"
+#MODEL="ViT-B-16-512"
 #MODEL="ViT-L-16"
-#MODEL="ViT-B-16"
 TRAIN_DATA="path/to/cc12m/{00000..01242}.tar"
 PROJECT_NAME=sharedCLIP
 

@@ -2,7 +2,7 @@
     "embed_dim": 768,
     "vision_cfg": {
         "image_size": 224,
-        "layers": 12,
+        "layers": 16,
         "width":  768,
         "patch_size": 16
     },
@@ -11,6 +11,6 @@
         "vocab_size": 49408,
         "width": 768,
         "heads": 12,
-        "layers": 12
+        "layers": 16 
     }
 }

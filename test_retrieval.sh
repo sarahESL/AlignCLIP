@@ -2,9 +2,9 @@
 
 OUTPATH=path/to/outputs/downstreams/cls_zeroshoshot
 BS=16
-MODEL="ViT-L-16"
-#MODEL="ViT-XL-16"
-#MODEL="ViT-B-16"
+MODEL="ViT-B-16"
+#MODEL="ViT-B-16-512"
+#MODEL="ViT-L-16"
 
 CHKPNT=path/to/trained/checkpoints/epoch_30.pt
 
