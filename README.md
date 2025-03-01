@@ -1,11 +1,11 @@
 # Mitigate the Gap: Investigating Approaches for Improving Cross-Modal Alignment in CLIP
 
-This is the official implementation of [AlignCLIP](https://arxiv.org/abs/2406.17639?context=cs.CV) and provides the source code for pre-training SharedCLIP as well as AlignCLIP.
+This is the official implementation of [AlignCLIP](https://openreview.net/forum?id=aPTGvFqile) and provides the source code for pre-training SharedCLIP as well as AlignCLIP.
 The implementation is based on the [OpenCLIP](ihttps://github.com/mlfoundations/open_clip).
 
-:running: We're currently running training of ShareCLIP and AlignCLIP with a larger dataset (~100M samples) and plan to release the checkpoints. Stay tuned!
+[**🤗 Checkpoints**](https://huggingface.co/sarahESL/AlignCLIP).
 
-## Setup
+
 It's recommended to use [`mamba`](https://github.com/mamba-org/mamba) to manage dependencies. Use the following to install the dependencies:
 
 ```
@@ -39,13 +39,14 @@ python -m main.run --logs="path/to/log/outputs" --pretrained="path/to/pretrained
 If you found this work useful, please cite:
  
 ```
-@article{eslami2024mitigate,
-  title={Mitigate the Gap: Investigating Approaches for Improving Cross-Modal Alignment in CLIP},
-  author={Eslami, Sedigheh and de Melo, Gerard},
-  journal={arXiv preprint arXiv:2406.17639},
-  year={2024}
+@inproceedings{
+eslami2025mitigate,
+title={Mitigate the Gap: Improving Cross-Modal Alignment in {CLIP}},
+author={Sedigheh Eslami and Gerard de Melo},
+booktitle={The Thirteenth International Conference on Learning Representations},
+year={2025},
+url={https://openreview.net/forum?id=aPTGvFqile}
 }
-
 ```
 
 ```
